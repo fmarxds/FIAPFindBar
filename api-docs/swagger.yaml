@@ -1,0 +1,181 @@
+swagger: "2.0"
+
+info:
+  description: "Serviço de gerenciamento de bares"
+  version: "1.0.0"
+  title: "FindBAR"
+
+host: "findbar-tbd.com"
+basePath: "/v1"
+
+tags:
+  - name: "bares"
+    description: "Operações sobre bares"
+
+paths:
+
+  /bares:
+    get:
+      tags:
+        - "bares"
+      summary: "Lista todos os bares cadastrados"
+      operationId: "findBares"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "sucesso"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Bar"
+    post:
+      tags:
+        - "bares"
+      summary: "Cadastra um novo bar"
+      operationId: "createBar"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Bar a ser salvo"
+          required: true
+          schema:
+            $ref: "#/definitions/Bar"
+      responses:
+        "200":
+          description: "sucesso"
+          schema:
+            $ref: "#/definitions/Bar"
+
+  /bares/{barId}:
+    get:
+      tags:
+        - "bares"
+      summary: "Busca um bar cadastrado por ID"
+      operationId: "findBar"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "barId"
+          in: "path"
+          description: "ID do bar"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "sucesso"
+          schema:
+            $ref: "#/definitions/Bar"
+    patch:
+      tags:
+        - "bares"
+      summary: "Atualiza um bar"
+      operationId: "updateBar"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "barId"
+          in: "path"
+          description: "ID do bar"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Bar a ser atualizado"
+          required: true
+          schema:
+            $ref: "#/definitions/Bar"
+      responses:
+        "200":
+          description: "sucesso"
+          schema:
+            $ref: "#/definitions/Bar"
+    delete:
+      tags:
+        - "bares"
+      summary: "Exclui um bar cadastrado por ID"
+      operationId: "deleteBar"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "barId"
+          in: "path"
+          description: "ID do bar"
+          required: true
+          type: "string"
+      responses:
+        "204":
+          description: "sucesso"
+
+definitions:
+
+  Bar:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "ebfef1a7-984c-48dc-8b5b-40e5b3f8da90"
+      nome:
+        type: "string"
+        example: "BarBA"
+      endereco:
+        $ref: "#/definitions/Endereco"
+      tipo:
+        type: "string"
+        example: "PUB"
+      estilos_musicais:
+        type: "array"
+        items:
+          type: "string"
+          example: "ROCK"
+      avaliacao:
+        type: "number"
+        example: 2.5
+      comentarios:
+        type: "array"
+        items:
+          $ref: "#/definitions/Comentario"
+
+  Endereco:
+    type: "object"
+    properties:
+      logradouro:
+        type: "string"
+        example: "Rua Lucas Lindo"
+      bairro:
+        type: "string"
+        example: "Jardim Sao Luis"
+      cidade:
+        type: "string"
+        example: "Sao Paulo"
+      estado:
+        type: "string"
+        example: "SP"
+      horario_abertura:
+        type: "string"
+        example: "10:00"
+      horario_fechamento:
+        type: "string"
+        example: "22:00"
+
+  Comentario:
+    type: "object"
+    properties:
+      mensagem:
+        type: "string"
+        example: "Esse bar é incrível!"
+      nota:
+        type: "number"
+        example: 4
