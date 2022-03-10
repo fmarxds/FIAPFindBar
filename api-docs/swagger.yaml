@@ -299,6 +299,12 @@ definitions:
       nome:
         type: "string"
         example: "BarBA"
+      horario_abertura:
+        type: "string"
+        example: "10:00"
+      horario_fechamento:
+        type: "string"
+        example: "22:00"
       endereco:
         $ref: "#/definitions/Endereco"
       tipo:
@@ -329,6 +335,15 @@ definitions:
       logradouro:
         type: "string"
         example: "Rua Lucas Lindo"
+      numero:
+        type: "string"
+        example: "42"
+      complemento:
+        type: "string"
+        example: "Apartamento 3 bloco A"
+      cep:
+        type: "string"
+        example: "01139-001"
       bairro:
         type: "string"
         example: "Jardim Sao Luis"
@@ -338,12 +353,6 @@ definitions:
       estado:
         type: "string"
         example: "SP"
-      horario_abertura:
-        type: "string"
-        example: "10:00"
-      horario_fechamento:
-        type: "string"
-        example: "22:00"
       
   Tag:
     type: "object"
@@ -358,6 +367,9 @@ definitions:
   Comentario:
     type: "object"
     properties:
+      id:
+        type: "string"
+        example: "507f1f77bcf86cd799439011"
       mensagem:
         type: "string"
         example: "Esse bar é incrível!"
