@@ -17,7 +17,7 @@ data class BarModel(
     val estilosMusicais: List<EstiloMusicalEnum>,
     val musicaAoVivo: Boolean,
     var avaliacao: Double = 0.0,
-    val comentarios: List<ComentarioModel>?,
-    val tags: List<TagModel>?,
+    val comentarios: List<ComentarioModel>? = mutableListOf(),
+    val tags: List<TagModel>? = mutableListOf(),
 
-)
+    )

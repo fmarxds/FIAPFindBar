@@ -61,7 +61,7 @@ paths:
           description: "Bar a ser salvo"
           required: true
           schema:
-            $ref: "#/definitions/Bar"
+            $ref: "#/definitions/BarCriacao"
       responses:
         "200":
           description: "sucesso"
@@ -290,6 +290,7 @@ paths:
     
 
 definitions:
+
   Bar:
     type: "object"
     properties:
@@ -328,6 +329,31 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Tag"
+
+  BarCriacao:
+    type: "object"
+    properties:
+      nome:
+        type: "string"
+        example: "BarBA"
+      horario_abertura:
+        type: "string"
+        example: "10:00"
+      horario_fechamento:
+        type: "string"
+        example: "22:00"
+      endereco:
+        $ref: "#/definitions/Endereco"
+      tipo:
+        type: "string"
+        example: "PUB"
+      estilos_musicais:
+        type: "array"
+        items:
+          type: "string"
+          example: "ROCK"
+      musica_ao_vivo:
+        type: "boolean"
 
   Endereco:
     type: "object"
