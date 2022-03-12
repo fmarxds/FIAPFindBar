@@ -1,7 +1,8 @@
 package br.com.fiap.apifindbar.controller
 
-import br.com.fiap.apifindbar.model.BarModel
+import br.com.fiap.apifindbar.dto.BarDTO
 import br.com.fiap.apifindbar.service.BarService
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -13,8 +14,8 @@ class BarController(
 ) {
 
     @GetMapping
-    fun findAll(): List<BarModel> {
-        return barService.findAll()
+    fun findAll(): ResponseEntity<Collection<BarDTO>> {
+        return ResponseEntity.ok(barService.findAll())
     }
 
 }

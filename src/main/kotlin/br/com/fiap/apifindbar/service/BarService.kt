@@ -1,9 +1,9 @@
 package br.com.fiap.apifindbar.service
 
-import br.com.fiap.apifindbar.model.BarModel
+import br.com.fiap.apifindbar.dto.BarDTO
 
 interface BarService {
 
-    fun findAll(): List<BarModel>
+    fun findAll(): Collection<BarDTO>
 
 }
