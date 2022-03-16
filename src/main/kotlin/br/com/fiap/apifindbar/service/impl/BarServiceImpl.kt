@@ -9,16 +9,18 @@ import br.com.fiap.apifindbar.model.BarModel
 import br.com.fiap.apifindbar.repository.BarRepository
 import br.com.fiap.apifindbar.service.BarService
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
-import kotlin.math.roundToInt
+
 
 @Service
 class BarServiceImpl(
 
-    private val barRepository: BarRepository,
-    private val barConverter: BarConverter,
+        private val barRepository: BarRepository,
+        private val barConverter: BarConverter,
 
-    ) : BarService {
+        ) : BarService {
 
     override fun findAll(filtro: ListaBarDTO): Collection<BarDTO> {
 
@@ -55,10 +57,18 @@ class BarServiceImpl(
 
     }
 
+    override fun delete(id: String) {
+        findOneById(id)
+        barRepository.deleteById(id)
+    }
+
+
     private fun findOneById(id: String): BarModel {
 
         return barRepository.findByIdOrNull(id) ?: throw BarNaoEncontradoException("Bar nao encontrado!")
 
     }
 
+
 }
+
