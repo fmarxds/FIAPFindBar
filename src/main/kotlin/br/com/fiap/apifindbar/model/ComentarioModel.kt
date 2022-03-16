@@ -1,7 +1,9 @@
 package br.com.fiap.apifindbar.model
 
+import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
 
+@Document(collection = "comentarios")
 data class ComentarioModel(
 
     @Field("id")
