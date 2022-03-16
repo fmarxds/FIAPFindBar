@@ -23,11 +23,11 @@ class ComentarioController(
         return ResponseEntity(comentarioService.addComments(barId!!, comentario!!), HttpStatus.CREATED)
     }
 
-  //  @PutMapping("/{commentId}")
-   // fun updateComment(
-    //    @PathVariable("commentId") commentId: String?,
-    //    @RequestBody comentario: ComentarioDTO
-   // ):ResponseEntity<ComentarioDTO?>? {
-    //    return ResponseEntity(comentarioService.updateComment(commentId, comentario), HttpStatus.OK)
-   // }
+  /*  @PatchMapping("/{commentId}")
+    fun updateComment(
+        @PathVariable("commentId") commentId: String?,
+        @RequestBody comentario: ComentarioDTO
+    ):ResponseEntity<ComentarioDTO?>? {
+        return ResponseEntity(comentarioService.updateComment(commentId, comentario), HttpStatus.OK)
+    }*/
 }
