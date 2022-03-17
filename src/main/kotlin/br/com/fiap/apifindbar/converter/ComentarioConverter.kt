@@ -8,6 +8,6 @@ import org.mapstruct.Mapper
 interface ComentarioConverter {
     fun toModel(comentarioDTO: ComentarioDTO): ComentarioModel
 
-    fun toDTO(comentarioModel: ComentarioModel): ComentarioDTO
+    fun toDTO(comentarioModel: ComentarioModel?): ComentarioDTO
 
 }

@@ -11,7 +11,6 @@ import br.com.fiap.apifindbar.repository.ComentarioRepository
 import br.com.fiap.apifindbar.service.BarService
 import br.com.fiap.apifindbar.service.ComentarioService
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 
 
@@ -36,8 +35,12 @@ class ComentarioServiceImpl(
         return comentarioConverter.toDTO(findOneById(id))
     }
 
-    private fun findOneById(id: String): ComentarioModel {
-        return comentarioRepository.findByIdOrNull(id) ?: throw ComentarioNaoEncontradoException("Comentário nao encontrado!")
+    private fun findOneById(id: String): ComentarioModel? {
+        return comentarioRepository.findByIdOrNull(id) ?: throw ComentarioNaoEncontradoException("Comentario nao encontrado!")
     }
 
-}
+    override fun deleteComment(id: String) {
+        findOneById(id)
+        comentarioRepository.deleteById(id)
+    }
+ }
