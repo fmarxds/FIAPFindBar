@@ -1,6 +1,7 @@
 package br.com.fiap.apifindbar.model
 
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalTime
 
@@ -17,7 +18,8 @@ data class BarModel(
     val estilosMusicais: List<EstiloMusicalEnum>,
     val musicaAoVivo: Boolean,
     var avaliacao: Double = 0.0,
-    val comentarios: List<ComentarioModel>? = mutableListOf(),
+    @DBRef
+    var comentarios: List<ComentarioModel>? = mutableListOf(),
     val tags: List<TagModel>? = mutableListOf(),
 
     )
