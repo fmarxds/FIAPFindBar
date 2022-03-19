@@ -30,6 +30,6 @@ data class BarDTO(
 
     val comentarios: MutableList<ComentarioDTO>?,
 
-    val tags: List<TagDTO>?,
+    val tags: MutableList<TagDTO>?,
 
 )
