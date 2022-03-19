@@ -2,7 +2,6 @@ package br.com.fiap.apifindbar.service.impl
 
 import br.com.fiap.apifindbar.converter.BarConverterImpl
 import br.com.fiap.apifindbar.converter.ComentarioConverter
-import br.com.fiap.apifindbar.dto.BarDTO
 import br.com.fiap.apifindbar.dto.ComentarioDTO
 import br.com.fiap.apifindbar.exception.ComentarioNaoEncontradoException
 import br.com.fiap.apifindbar.model.ComentarioModel
@@ -24,23 +23,29 @@ class ComentarioServiceImpl(
     ) : ComentarioService {
 
 
-    override fun addComments(barId: String, comentario: ComentarioDTO): ComentarioDTO {
-        val bar: BarDTO = barService.findOne(barId!!)
-        bar.comentarios?.add(comentario)
-        barRepository.save(barConverter.toModel(bar))
-        return comentario
+    override fun addComments(comentario: ComentarioModel): ComentarioModel {
+        //val bar: BarDTO = barService.findOne(barId!!)
+
+        //bar.comentarios?.add(createOne(comentario))
+        //barRepository.save(barConverter.toModel(bar))
+        val com: ComentarioDTO = createOne(comentarioConverter.toDTO(comentario))
+        return comentarioConverter.toModel(com)
     }
 
      override fun findOne(id: String): ComentarioDTO {
         return comentarioConverter.toDTO(findOneById(id))
     }
 
-    private fun findOneById(id: String): ComentarioModel? {
+    private fun findOneById(id: String): ComentarioModel {
         return comentarioRepository.findByIdOrNull(id) ?: throw ComentarioNaoEncontradoException("Comentario nao encontrado!")
     }
 
     override fun deleteComment(id: String) {
         findOneById(id)
         comentarioRepository.deleteById(id)
+    }
+
+    override fun createOne(novoComentarioDTO: ComentarioDTO): ComentarioDTO {
+        return comentarioConverter.toDTO(comentarioRepository.save(comentarioConverter.toModel(novoComentarioDTO)))
     }
  }

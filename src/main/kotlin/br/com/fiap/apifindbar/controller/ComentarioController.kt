@@ -1,7 +1,6 @@
 package br.com.fiap.apifindbar.controller
 
-import br.com.fiap.apifindbar.dto.ComentarioDTO
-import br.com.fiap.apifindbar.exception.ComentarioNaoEncontradoException
+import br.com.fiap.apifindbar.model.ComentarioModel
 import br.com.fiap.apifindbar.service.BarService
 import br.com.fiap.apifindbar.service.ComentarioService
 import org.springframework.http.HttpStatus
@@ -16,12 +15,11 @@ class ComentarioController(
         private val comentarioService: ComentarioService,
 ) {
 
-    @PostMapping("/bares/{barId}")
+    @PostMapping
     fun addComments(
-        @PathVariable("barId") barId: String?,
-        @RequestBody comentario: ComentarioDTO?
-    ): ResponseEntity<ComentarioDTO?>? {
-        return ResponseEntity(comentarioService.addComments(barId!!, comentario!!), HttpStatus.CREATED)
+       @RequestBody comentario: ComentarioModel?
+    ): ResponseEntity<ComentarioModel?>? {
+        return ResponseEntity(comentarioService.addComments(comentario!!), HttpStatus.CREATED)
     }
 
    /* @PatchMapping("/{commentId}")
@@ -35,8 +33,8 @@ class ComentarioController(
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{commentId}")
     fun deleteComment(
-        @PathVariable("commentId") commentId: String) {
-        comentarioService.deleteComment(commentId!!)
+        @PathVariable("commentId") id: String) {
+        comentarioService.deleteComment(id!!)
     }
 
  /*   @GetMapping("/{id}")
