@@ -1,5 +1,6 @@
 package br.com.fiap.apifindbar.controller
 
+import br.com.fiap.apifindbar.dto.BarAlteracaoDTO
 import br.com.fiap.apifindbar.dto.BarDTO
 import br.com.fiap.apifindbar.dto.BarNovoDTO
 import br.com.fiap.apifindbar.dto.ListaBarDTO
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -68,4 +70,13 @@ class BarController(
     fun deleteById(@PathVariable("id") id: String,) {
       barService.delete(id)
     }
+
+    @PatchMapping("/{id}")
+    fun updateBarById(
+        @PathVariable("id") id: String,
+        @RequestBody barAlteracaoDTO: BarAlteracaoDTO,
+    ): ResponseEntity<BarDTO> {
+        return ResponseEntity.ok(barService.update(id, barAlteracaoDTO))
+    }
+
 }

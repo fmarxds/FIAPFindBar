@@ -1,11 +1,15 @@
 package br.com.fiap.apifindbar.service.impl
 
 import br.com.fiap.apifindbar.converter.BarConverter
+import br.com.fiap.apifindbar.dto.BarAlteracaoDTO
 import br.com.fiap.apifindbar.dto.BarDTO
 import br.com.fiap.apifindbar.dto.BarNovoDTO
 import br.com.fiap.apifindbar.dto.ListaBarDTO
 import br.com.fiap.apifindbar.exception.BarNaoEncontradoException
 import br.com.fiap.apifindbar.model.BarModel
+import br.com.fiap.apifindbar.model.EnderecoModel
+import br.com.fiap.apifindbar.model.EstiloMusicalEnum
+import br.com.fiap.apifindbar.model.TipoBarEnum
 import br.com.fiap.apifindbar.repository.BarRepository
 import br.com.fiap.apifindbar.service.BarService
 import org.springframework.data.repository.findByIdOrNull
@@ -17,10 +21,10 @@ import org.springframework.stereotype.Service
 @Service
 class BarServiceImpl(
 
-        private val barRepository: BarRepository,
-        private val barConverter: BarConverter,
+    private val barRepository: BarRepository,
+    private val barConverter: BarConverter,
 
-        ) : BarService {
+    ) : BarService {
 
     override fun findAll(filtro: ListaBarDTO): Collection<BarDTO> {
 
@@ -60,6 +64,42 @@ class BarServiceImpl(
     override fun delete(id: String) {
         findOneById(id)
         barRepository.deleteById(id)
+    }
+
+    override fun update(id: String, barAlteracaoDTO: BarAlteracaoDTO): BarDTO {
+
+        val barModel = findOneById(id)
+
+        val barAlterado = BarModel(
+            id = barModel.id,
+            nome = barAlteracaoDTO.nome ?: barModel.nome,
+            horarioAbertura = barAlteracaoDTO.horarioAbertura ?: barModel.horarioAbertura,
+            horarioFechamento = barAlteracaoDTO.horarioFechamento ?: barModel.horarioFechamento,
+            endereco = EnderecoModel(
+                logradouro = barAlteracaoDTO.endereco?.logradouro ?: barModel.endereco.logradouro,
+                numero = barAlteracaoDTO.endereco?.numero ?: barModel.endereco.numero,
+                complemento = barAlteracaoDTO.endereco?.complemento ?: barModel.endereco.complemento,
+                cep = barAlteracaoDTO.endereco?.cep ?: barModel.endereco.cep,
+                bairro = barAlteracaoDTO.endereco?.bairro ?: barModel.endereco.bairro,
+                cidade = barAlteracaoDTO.endereco?.cidade ?: barModel.endereco.cidade,
+                estado = barAlteracaoDTO.endereco?.estado ?: barModel.endereco.estado,
+            ),
+            tipo = if (barAlteracaoDTO.tipo == null) barModel.tipo else TipoBarEnum.valueOf(barAlteracaoDTO.tipo.name),
+            estilosMusicais = if (barAlteracaoDTO.estilosMusicais == null || barAlteracaoDTO.estilosMusicais.isEmpty()) {
+                barModel.estilosMusicais
+            } else {
+                barAlteracaoDTO.estilosMusicais.map {
+                    EstiloMusicalEnum.valueOf(it.name)
+                }
+            },
+            musicaAoVivo = barAlteracaoDTO.musicaAoVivo ?: barModel.musicaAoVivo,
+            avaliacao = barModel.avaliacao,
+            comentarios = barModel.comentarios,
+            tags = barModel.tags,
+        )
+
+        return barConverter.toDTO(barRepository.save(barAlterado))
+
     }
 
 
