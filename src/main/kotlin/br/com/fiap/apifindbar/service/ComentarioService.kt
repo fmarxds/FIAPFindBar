@@ -13,4 +13,6 @@ interface ComentarioService {
     fun deleteComment (id: String)
 
     fun createOne(novoComentarioDTO: ComentarioDTO): ComentarioDTO
+
+    fun updateComment(commentId: String, comentario: ComentarioDTO): ComentarioDTO
 }

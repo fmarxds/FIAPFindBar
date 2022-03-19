@@ -48,4 +48,16 @@ class ComentarioServiceImpl(
     override fun createOne(novoComentarioDTO: ComentarioDTO): ComentarioDTO {
         return comentarioConverter.toDTO(comentarioRepository.save(comentarioConverter.toModel(novoComentarioDTO)))
     }
- }
+
+    override fun updateComment(commentId: String, comentario: ComentarioDTO): ComentarioDTO {
+        val com = findOneById(commentId);
+        val comAlterado = ComentarioModel(
+            id = commentId,
+            mensagem = comentario.mensagem,
+            nota = comentario.nota,
+            likes = comentario.likes,
+            dislikes = comentario.dislikes,
+        )
+        return comentarioConverter.toDTO(comentarioRepository.save(comAlterado))
+    }
+   }
