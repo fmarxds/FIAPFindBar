@@ -7,11 +7,11 @@ FindBar é uma API que fornece informações sobre os mais variados tipos de bar
 ![Build](https://img.shields.io/static/v1?label=Versão&message=1.0.0&color=blue)
 
 # Integrantes:
-> Arthur Gomes Araújo
-> Felipe Marques dos Santos
-> Fernando César Martins
-> Flávio Lopes de Brito
-> Lucas Oliveira Vaz
+- Arthur Gomes Araújo
+- Felipe Marques dos Santos
+- Fernando César Martins
+- Flávio Lopes de Brito
+- Lucas Oliveira Vaz
 
 ## Funcionalidades
 
