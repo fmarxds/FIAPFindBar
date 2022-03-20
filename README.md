@@ -34,6 +34,10 @@ FindBar é um webservice que fornece dados sobre os mais variados tipos de bares
 - Spring Web
 - Spring Actuator
 
+## Documentação da API
+
+<https://github.com/RunageINC/FIAPFindBar/blob/main/api-docs/swagger.yaml>
+
 ## Changelog
 
 - 1.0.0
