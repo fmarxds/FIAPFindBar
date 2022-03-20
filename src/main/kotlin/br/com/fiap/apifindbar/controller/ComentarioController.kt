@@ -39,16 +39,4 @@ class ComentarioController(
         comentarioService.deleteComment(id!!)
     }
 
- /*   @GetMapping("/{id}")
-    fun findById(
-        @PathVariable("id") id: String
-    ): ResponseEntity<ComentarioDTO> {
-
-        return try {
-            ResponseEntity.ok(comentarioService.findOne(id))
-        } catch (ex: ComentarioNaoEncontradoException) {
-            ResponseEntity.notFound().build()
-        }
-
-    }*/
 }
