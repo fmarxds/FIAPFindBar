@@ -1,11 +1,9 @@
 server:
   port: 5000
 
+spring:
+  profiles:
+    default: dev
+
 spring.data.mongodb:
-  host: ${MONGODB_HOST:localhost}
-  port: ${MONGODB_PORT:27017}
-  database: ${MONGODB_DATABASE:db_findbar}
-  username: ${MONGODB_USERNAME:admin}
-  password: ${MONGODB_PASSWORD:admin}
-  authentication-database: ${MONGODB_AUTH_DATABASE:admin}
   field-naming-strategy: org.springframework.data.mapping.model.SnakeCaseFieldNamingStrategy
