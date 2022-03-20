@@ -23,11 +23,12 @@ class ComentarioServiceImpl(
     ) : ComentarioService {
 
 
-    override fun addComments(comentario: ComentarioModel): ComentarioModel {
+    override fun addComments(barId: String, comentario: ComentarioModel): ComentarioModel {
         //val bar: BarDTO = barService.findOne(barId!!)
 
         //bar.comentarios?.add(createOne(comentario))
         //barRepository.save(barConverter.toModel(bar))
+        comentario.barId = barId
         val com: ComentarioDTO = createOne(comentarioConverter.toDTO(comentario))
         return comentarioConverter.toModel(com)
     }

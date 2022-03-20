@@ -184,7 +184,7 @@ paths:
         "204":
           description: "sucesso"
           
-  /comentarios/bares/{barId}:
+  /comentarios/{barId}:
     post:
       tags:
         - "comentario"
@@ -446,6 +446,9 @@ definitions:
       id:
         type: "string"
         example: "507f1f77bcf86cd799439011"
+      barId:
+        type: "string"
+        example: "ebfef1a7-984c-48dc-8b5b-40e5b3f8da90"
       mensagem:
         type: "string"
         example: "Esse bar é incrível!"

@@ -16,11 +16,12 @@ class ComentarioController(
         private val comentarioService: ComentarioService,
 ) {
 
-    @PostMapping
+    @PostMapping("/{barId}")
     fun addComments(
+        @PathVariable("barId") barId: String,
        @RequestBody comentario: ComentarioModel?
     ): ResponseEntity<ComentarioModel?>? {
-        return ResponseEntity(comentarioService.addComments(comentario!!), HttpStatus.CREATED)
+        return ResponseEntity(comentarioService.addComments(barId, comentario!!), HttpStatus.CREATED)
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
