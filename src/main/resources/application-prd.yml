@@ -1,0 +1,3 @@
+spring.data.mongodb:
+  uri: mongodb+srv://admin:${MONGODB_PASSWORD}@cluster0.6m2wy.mongodb.net/db_findbar?retryWrites=true&w=majority
+  password: ${MONGODB_PASSWORD}

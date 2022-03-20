@@ -161,7 +161,7 @@ paths:
           description: "Bar a ser atualizado"
           required: true
           schema:
-            $ref: "#/definitions/Bar"
+            $ref: "#/definitions/BarAlteracao"
       responses:
         "200":
           description: "sucesso"
@@ -355,7 +355,57 @@ definitions:
       musica_ao_vivo:
         type: "boolean"
 
+  BarAlteracao:
+    type: "object"
+    properties:
+      nome:
+        type: "string"
+        example: "BarBA"
+      horario_abertura:
+        type: "string"
+        example: "10:00"
+      horario_fechamento:
+        type: "string"
+        example: "22:00"
+      endereco:
+        $ref: "#/definitions/EnderecoAlteracao"
+      tipo:
+        type: "string"
+        example: "PUB"
+      estilos_musicais:
+        type: "array"
+        items:
+          type: "string"
+          example: "ROCK"
+      musica_ao_vivo:
+        type: "boolean"
+
   Endereco:
+    type: "object"
+    properties:
+      logradouro:
+        type: "string"
+        example: "Rua Lucas Lindo"
+      numero:
+        type: "string"
+        example: "42"
+      complemento:
+        type: "string"
+        example: "Apartamento 3 bloco A"
+      cep:
+        type: "string"
+        example: "01139-001"
+      bairro:
+        type: "string"
+        example: "Jardim Sao Luis"
+      cidade:
+        type: "string"
+        example: "Sao Paulo"
+      estado:
+        type: "string"
+        example: "SP"
+
+  EnderecoAlteracao:
     type: "object"
     properties:
       logradouro:
