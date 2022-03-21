@@ -11,6 +11,7 @@ management:
   endpoints:
     web:
       cors:
-        allowed-headers: *
-        allowed-methods: *
-        allowed-origins: *
+        allowed-headers: "*"
+        allowed-methods: "*"
+        allowed-origins: "*"
+        exposed-headers: "Access-Control-Allow-Origin,Origin"
