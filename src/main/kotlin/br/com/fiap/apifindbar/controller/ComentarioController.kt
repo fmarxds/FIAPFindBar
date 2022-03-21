@@ -2,7 +2,6 @@ package br.com.fiap.apifindbar.controller
 
 import br.com.fiap.apifindbar.dto.ComentarioDTO
 import br.com.fiap.apifindbar.model.ComentarioModel
-import br.com.fiap.apifindbar.service.BarService
 import br.com.fiap.apifindbar.service.ComentarioService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/comentarios")
 class ComentarioController(
-        private val barService: BarService,
         private val comentarioService: ComentarioService,
 ) {
 
