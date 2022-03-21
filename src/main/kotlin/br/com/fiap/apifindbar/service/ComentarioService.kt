@@ -6,7 +6,7 @@ import br.com.fiap.apifindbar.model.ComentarioModel
 
 interface ComentarioService {
 
-    fun addComments(comentario: ComentarioModel): ComentarioModel
+    fun addComments(barId: String, comentario: ComentarioModel): ComentarioModel
 
     fun findOne(id: String): ComentarioDTO
 

@@ -24,6 +24,7 @@ db.bar.insertOne(
         "comentarios": [
             {
                 "id": "d425a05f-8551-4a95-a68d-f057950b4d00",
+                "barId": "62294eb9b9cc76b9e23309be",
                 "mensagem": "Esse bar é incrível!",
                 "nota": 4,
                 "likes": 3,
