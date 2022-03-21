@@ -184,7 +184,7 @@ paths:
         "204":
           description: "sucesso"
           
-  /comentarios/{barId}:
+  /comentarios/bares/{barId}:
     post:
       tags:
         - "comentario"

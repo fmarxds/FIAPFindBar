@@ -13,9 +13,8 @@ import br.com.fiap.apifindbar.model.TipoBarEnum
 import br.com.fiap.apifindbar.repository.BarRepository
 import br.com.fiap.apifindbar.service.BarService
 import br.com.fiap.apifindbar.service.ComentarioService
+import br.com.fiap.apifindbar.service.TagService
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 
 
@@ -25,6 +24,7 @@ class BarServiceImpl(
     private val barRepository: BarRepository,
     private val barConverter: BarConverter,
     private val comentarioService: ComentarioService,
+    private val tagService: TagService,
 
     ) : BarService {
 
@@ -49,6 +49,14 @@ class BarServiceImpl(
 
         bares.forEach {
             it.comentarios = comentarioService.findAllComentarioModelByBarId(it.id!!).toList()
+            it.tags = tagService.findAllTagModelByBarId(it.id).toList()
+        }
+
+        bares.forEach {
+            it.avaliacao = it.comentarios
+                ?.map { comentario -> comentario.nota }
+                ?.average() ?: 0.0
+            if (it.avaliacao.isNaN()) it.avaliacao = 0.0
         }
 
         return barConverter.toDTO(bares)
@@ -60,6 +68,10 @@ class BarServiceImpl(
         val bar = findOneById(id)
 
         bar.comentarios = comentarioService.findAllComentarioModelByBarId(id).toList()
+        bar.tags = tagService.findAllTagModelByBarId(id).toList()
+        bar.avaliacao = bar.comentarios
+            ?.map { comentario -> comentario.nota }
+            ?.average() ?: 0.0
 
         return barConverter.toDTO(bar)
 
@@ -80,6 +92,10 @@ class BarServiceImpl(
 
         val barModel = findOneById(id)
         barModel.comentarios = comentarioService.findAllComentarioModelByBarId(id).toList()
+        barModel.tags = tagService.findAllTagModelByBarId(id).toList()
+        barModel.avaliacao = barModel.comentarios
+            ?.map { comentario -> comentario.nota }
+            ?.average() ?: 0.0
 
         val barAlterado = BarModel(
             id = barModel.id,

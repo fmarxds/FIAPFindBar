@@ -1,10 +1,8 @@
 package br.com.fiap.apifindbar.controller
 
-import br.com.fiap.apifindbar.dto.BarDTO
-import br.com.fiap.apifindbar.dto.ListaBarDTO
+import br.com.fiap.apifindbar.dto.TagAlteracaoDTO
 import br.com.fiap.apifindbar.dto.TagDTO
-import br.com.fiap.apifindbar.model.TagModel
-import br.com.fiap.apifindbar.service.BarService
+import br.com.fiap.apifindbar.dto.TagNovoDTO
 import br.com.fiap.apifindbar.service.TagService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -14,38 +12,37 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/tags")
 class TagController(
-    private val barService: BarService,
     private val tagService: TagService,
 ) {
 
     @GetMapping
-    fun findAll(): ResponseEntity<TagDTO> {
-    return ResponseEntity.ok(tagService.findAll())
+    fun findAll(): ResponseEntity<Collection<TagDTO>> {
+        return ResponseEntity.ok(tagService.findAll())
     }
 
-
-    @PostMapping("/{barId}")
+    @PostMapping("/bares/{barId}")
     fun addTags(
         @PathVariable("barId") barId: String,
-       @RequestBody tag: TagModel?
-    ): ResponseEntity<TagModel?>? {
-        return ResponseEntity(tagService.addTag(barId, tag!!), HttpStatus.CREATED)
+        @RequestBody tag: TagNovoDTO
+    ): ResponseEntity<TagDTO> {
+        return ResponseEntity(tagService.addTag(barId, tag), HttpStatus.CREATED)
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-   @PatchMapping("/{tagId}")
+    @PatchMapping("/{tagId}")
     fun updateTag(
         @PathVariable("tagId") tagId: String,
-        @RequestBody tag: TagDTO
-    ):ResponseEntity<TagDTO?>? {
+        @RequestBody tag: TagAlteracaoDTO
+    ): ResponseEntity<TagDTO> {
         return ResponseEntity(tagService.updateTag(tagId, tag), HttpStatus.OK)
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{tagId}")
     fun deleteTag(
-        @PathVariable("tagId") id: String) {
-        tagService.deleteTag(id!!)
+        @PathVariable("tagId") id: String
+    ) {
+        tagService.deleteTag(id)
     }
 
 }

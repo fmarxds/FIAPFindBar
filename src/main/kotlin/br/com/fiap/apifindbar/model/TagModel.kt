@@ -9,6 +9,7 @@ data class TagModel(
 
     @Id
     var id: String? = null,
+    var barId: String,
     val value: String,
 
 )
