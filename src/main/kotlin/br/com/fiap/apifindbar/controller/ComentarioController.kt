@@ -1,8 +1,6 @@
 package br.com.fiap.apifindbar.controller
 
-import br.com.fiap.apifindbar.dto.ComentarioAlteracaoDTO
-import br.com.fiap.apifindbar.dto.ComentarioDTO
-import br.com.fiap.apifindbar.dto.ComentarioNovoDTO
+import br.com.fiap.apifindbar.dto.*
 import br.com.fiap.apifindbar.service.ComentarioService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -30,6 +28,15 @@ class ComentarioController(
         @RequestBody comentario: ComentarioAlteracaoDTO,
     ): ResponseEntity<ComentarioDTO> {
         return ResponseEntity(comentarioService.updateComment(commentId, comentario), HttpStatus.OK)
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PatchMapping("/{commentId}/reaction")
+    fun updateComment(
+        @PathVariable("commentId") commentId: String,
+        @RequestBody comentarioReactionDTO: ComentarioReactionDTO,
+    ): ResponseEntity<ComentarioDTO> {
+        return ResponseEntity(comentarioService.addReaction(commentId, comentarioReactionDTO), HttpStatus.OK)
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

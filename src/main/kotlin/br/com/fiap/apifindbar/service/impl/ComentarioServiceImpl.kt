@@ -1,9 +1,7 @@
 package br.com.fiap.apifindbar.service.impl
 
 import br.com.fiap.apifindbar.converter.ComentarioConverter
-import br.com.fiap.apifindbar.dto.ComentarioAlteracaoDTO
-import br.com.fiap.apifindbar.dto.ComentarioDTO
-import br.com.fiap.apifindbar.dto.ComentarioNovoDTO
+import br.com.fiap.apifindbar.dto.*
 import br.com.fiap.apifindbar.exception.ComentarioNaoEncontradoException
 import br.com.fiap.apifindbar.model.ComentarioModel
 import br.com.fiap.apifindbar.repository.ComentarioRepository
@@ -56,6 +54,20 @@ class ComentarioServiceImpl(
         )
 
         return comentarioConverter.toDTO(comentarioRepository.save(comentarioAlterado))
+    }
+
+    override fun addReaction(id:String, comentarioReactionDTO: ComentarioReactionDTO): ComentarioDTO {
+
+        val comentario = findOneById(id)
+
+        if (ComentarioReactionEnumDTO.LIKE == comentarioReactionDTO.reaction) {
+            comentario.likes += 1
+        } else {
+            comentario.dislikes += 1
+        }
+
+        return comentarioConverter.toDTO(comentarioRepository.save(comentario))
+
     }
 
     private fun findOneById(id: String): ComentarioModel {

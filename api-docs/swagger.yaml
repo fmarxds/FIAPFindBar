@@ -279,8 +279,7 @@ paths:
           description: "Novo comentário"
           required: true
           schema:
-            type: "string"
-            example: "Teste de comentário novo"
+           $ref: "#/definitions/ComentarioReaction"
       responses:
         "200":
           description: "sucesso"
@@ -461,3 +460,10 @@ definitions:
       dislikes:
         type: "integer"
         example: 999
+
+  ComentarioReaction:
+    type: "object"
+    properties:
+      reaction:
+        type: "string"
+        enum: [ 'LIKE', 'DISLIKE' ]
