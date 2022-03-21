@@ -15,19 +15,12 @@ import org.springframework.stereotype.Service
 
 @Service
 class ComentarioServiceImpl(
-    private val barRepository: BarRepository,
-    private val barService: BarService,
-    private val barConverter: BarConverterImpl,
     private val comentarioConverter: ComentarioConverter,
     private val comentarioRepository: ComentarioRepository,
     ) : ComentarioService {
 
 
     override fun addComments(barId: String, comentario: ComentarioModel): ComentarioModel {
-        //val bar: BarDTO = barService.findOne(barId!!)
-
-        //bar.comentarios?.add(createOne(comentario))
-        //barRepository.save(barConverter.toModel(bar))
         comentario.barId = barId
         val com: ComentarioDTO = createOne(comentarioConverter.toDTO(comentario))
         return comentarioConverter.toModel(com)
