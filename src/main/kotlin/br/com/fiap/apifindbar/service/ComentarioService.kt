@@ -1,18 +1,23 @@
 package br.com.fiap.apifindbar.service
 
+import br.com.fiap.apifindbar.dto.ComentarioAlteracaoDTO
 import br.com.fiap.apifindbar.dto.ComentarioDTO
+import br.com.fiap.apifindbar.dto.ComentarioNovoDTO
 import br.com.fiap.apifindbar.model.ComentarioModel
 
 
 interface ComentarioService {
 
-    fun addComments(barId: String, comentario: ComentarioModel): ComentarioModel
+    fun addComments(barId: String, comentario: ComentarioNovoDTO): ComentarioDTO
 
     fun findOne(id: String): ComentarioDTO
 
+    fun findAllComentarioModelByBarId(barId: String): Collection<ComentarioModel>
+
     fun deleteComment (id: String)
 
-    fun createOne(novoComentarioDTO: ComentarioDTO): ComentarioDTO
+    fun createOne(novoComentarioDTO: ComentarioNovoDTO): ComentarioDTO
 
-    fun updateComment(commentId: String, comentario: ComentarioDTO): ComentarioDTO
+    fun updateComment(commentId: String, comentario: ComentarioAlteracaoDTO): ComentarioDTO
+
 }

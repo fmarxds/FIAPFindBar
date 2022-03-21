@@ -14,4 +14,4 @@ data class ComentarioModel(
     var likes: Int = 0,
     var dislikes: Int = 0,
 
-    )
+)

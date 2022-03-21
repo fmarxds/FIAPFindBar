@@ -28,8 +28,8 @@ data class BarDTO(
 
     var avaliacao: Double = 0.0,
 
-    val comentarios: MutableList<ComentarioDTO>?,
+    var comentarios: MutableList<ComentarioDTO>?,
 
-    val tags: List<TagDTO>?,
+    var tags: List<TagDTO>?,
 
 )

@@ -12,6 +12,7 @@ import br.com.fiap.apifindbar.model.EstiloMusicalEnum
 import br.com.fiap.apifindbar.model.TipoBarEnum
 import br.com.fiap.apifindbar.repository.BarRepository
 import br.com.fiap.apifindbar.service.BarService
+import br.com.fiap.apifindbar.service.ComentarioService
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -23,6 +24,7 @@ class BarServiceImpl(
 
     private val barRepository: BarRepository,
     private val barConverter: BarConverter,
+    private val comentarioService: ComentarioService,
 
     ) : BarService {
 
@@ -45,13 +47,21 @@ class BarServiceImpl(
             bares = bares.filter { it.musicaAoVivo == aoVivo }
         }
 
+        bares.forEach {
+            it.comentarios = comentarioService.findAllComentarioModelByBarId(it.id!!).toList()
+        }
+
         return barConverter.toDTO(bares)
 
     }
 
     override fun findOne(id: String): BarDTO {
 
-        return barConverter.toDTO(findOneById(id))
+        val bar = findOneById(id)
+
+        bar.comentarios = comentarioService.findAllComentarioModelByBarId(id).toList()
+
+        return barConverter.toDTO(bar)
 
     }
 
@@ -69,6 +79,7 @@ class BarServiceImpl(
     override fun update(id: String, barAlteracaoDTO: BarAlteracaoDTO): BarDTO {
 
         val barModel = findOneById(id)
+        barModel.comentarios = comentarioService.findAllComentarioModelByBarId(id).toList()
 
         val barAlterado = BarModel(
             id = barModel.id,

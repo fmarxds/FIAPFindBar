@@ -1,13 +1,12 @@
 package br.com.fiap.apifindbar.service.impl
 
-import br.com.fiap.apifindbar.converter.BarConverterImpl
 import br.com.fiap.apifindbar.converter.ComentarioConverter
+import br.com.fiap.apifindbar.dto.ComentarioAlteracaoDTO
 import br.com.fiap.apifindbar.dto.ComentarioDTO
+import br.com.fiap.apifindbar.dto.ComentarioNovoDTO
 import br.com.fiap.apifindbar.exception.ComentarioNaoEncontradoException
 import br.com.fiap.apifindbar.model.ComentarioModel
-import br.com.fiap.apifindbar.repository.BarRepository
 import br.com.fiap.apifindbar.repository.ComentarioRepository
-import br.com.fiap.apifindbar.service.BarService
 import br.com.fiap.apifindbar.service.ComentarioService
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -17,21 +16,26 @@ import org.springframework.stereotype.Service
 class ComentarioServiceImpl(
     private val comentarioConverter: ComentarioConverter,
     private val comentarioRepository: ComentarioRepository,
-    ) : ComentarioService {
+) : ComentarioService {
 
+    override fun addComments(barId: String, comentario: ComentarioNovoDTO): ComentarioDTO {
 
-    override fun addComments(barId: String, comentario: ComentarioModel): ComentarioModel {
-        comentario.barId = barId
-        val com: ComentarioDTO = createOne(comentarioConverter.toDTO(comentario))
-        return comentarioConverter.toModel(com)
+        val novoComentario = ComentarioModel(
+            barId = barId,
+            mensagem = comentario.mensagem,
+            nota = comentario.nota,
+        )
+
+        return comentarioConverter.toDTO(comentarioRepository.save(novoComentario))
+
     }
 
-     override fun findOne(id: String): ComentarioDTO {
+    override fun findOne(id: String): ComentarioDTO {
         return comentarioConverter.toDTO(findOneById(id))
     }
 
-    private fun findOneById(id: String): ComentarioModel {
-        return comentarioRepository.findByIdOrNull(id) ?: throw ComentarioNaoEncontradoException("Comentario nao encontrado!")
+    override fun findAllComentarioModelByBarId(barId: String): Collection<ComentarioModel> {
+        return comentarioRepository.findAllByBarId(barId)
     }
 
     override fun deleteComment(id: String) {
@@ -39,19 +43,28 @@ class ComentarioServiceImpl(
         comentarioRepository.deleteById(id)
     }
 
-    override fun createOne(novoComentarioDTO: ComentarioDTO): ComentarioDTO {
+    override fun createOne(novoComentarioDTO: ComentarioNovoDTO): ComentarioDTO {
         return comentarioConverter.toDTO(comentarioRepository.save(comentarioConverter.toModel(novoComentarioDTO)))
     }
 
-    override fun updateComment(commentId: String, comentario: ComentarioDTO): ComentarioDTO {
-        val com = findOneById(commentId);
-        val comAlterado = ComentarioModel(
-            id = commentId,
-            mensagem = comentario.mensagem,
-            nota = comentario.nota,
-            likes = comentario.likes,
-            dislikes = comentario.dislikes,
+    override fun updateComment(commentId: String, comentario: ComentarioAlteracaoDTO): ComentarioDTO {
+        val comentarioOriginal = findOneById(commentId)
+
+        val comentarioAlterado = ComentarioModel(
+            id = comentarioOriginal.id,
+            barId = comentarioOriginal.barId,
+            mensagem = comentario.mensagem ?: comentarioOriginal.mensagem,
+            nota = comentario.nota ?: comentarioOriginal.nota,
+            likes = comentarioOriginal.likes,
+            dislikes = comentarioOriginal.dislikes,
         )
-        return comentarioConverter.toDTO(comentarioRepository.save(comAlterado))
+
+        return comentarioConverter.toDTO(comentarioRepository.save(comentarioAlterado))
     }
-   }
+
+    private fun findOneById(id: String): ComentarioModel {
+        return comentarioRepository.findByIdOrNull(id)
+            ?: throw ComentarioNaoEncontradoException("Comentario nao encontrado!")
+    }
+
+}
