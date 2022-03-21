@@ -8,7 +8,7 @@ data class ComentarioModel(
 
     @Id
     var id: String? = null,
-    var barId: String? = null,
+    var barId: String,
     val mensagem: String,
     val nota: Int,
     var likes: Int = 0,

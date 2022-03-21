@@ -15,7 +15,7 @@ class ComentarioController(
     private val comentarioService: ComentarioService,
 ) {
 
-    @PostMapping("/{barId}")
+    @PostMapping("/bares/{barId}")
     fun addComments(
         @PathVariable("barId") barId: String,
         @RequestBody comentario: ComentarioNovoDTO,

@@ -20,7 +20,7 @@ data class BarModel(
     var avaliacao: Double = 0.0,
     @DBRef
     var comentarios: List<ComentarioModel>? = mutableListOf(),
-    val tags: List<TagModel>? = mutableListOf(),
+    var tags: List<TagModel>? = mutableListOf(),
 
     //No post barId no comentarioModel
     )

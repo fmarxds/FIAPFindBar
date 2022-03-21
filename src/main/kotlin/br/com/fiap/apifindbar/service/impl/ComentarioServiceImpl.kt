@@ -43,10 +43,6 @@ class ComentarioServiceImpl(
         comentarioRepository.deleteById(id)
     }
 
-    override fun createOne(novoComentarioDTO: ComentarioNovoDTO): ComentarioDTO {
-        return comentarioConverter.toDTO(comentarioRepository.save(comentarioConverter.toModel(novoComentarioDTO)))
-    }
-
     override fun updateComment(commentId: String, comentario: ComentarioAlteracaoDTO): ComentarioDTO {
         val comentarioOriginal = findOneById(commentId)
 
