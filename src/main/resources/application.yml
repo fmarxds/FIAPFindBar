@@ -7,3 +7,10 @@ spring:
 
 spring.data.mongodb:
   field-naming-strategy: org.springframework.data.mapping.model.SnakeCaseFieldNamingStrategy
+management:
+  endpoints:
+    web:
+      cors:
+        allowed-headers: *
+        allowed-methods: *
+        allowed-origins: *
